@@ -16,40 +16,41 @@
 #
 # Note: Cat emojis are not required. 🐶
 
+
+#hat_swap takes an array of hashes, and the pass, or number of times we have
+#iterated through the array. It then swaps the hats of every n-th cat, where
+#n is == pass. Once it's done, it returns the array.
+def hat_swap(cats,pass)
+  count = 0
+  while count <= 99
+    if cats[count][:hat] #i think i can get rid of this true here
+      cats[count][:hat] = false
+    else
+      cats[count][:hat] = true
+    end
+    count += pass
+  end
+  return cats
+end
+
+#intialize our pass variable and our array of cats
+pass = 1
 cats = []
 100.times do
   cats << { hat: true }
 end
 
-pass = 1
+#make 100 passes on the cats, swapping hats along the way
 100.times do
-  if pass == 1
-    cats.each do |cat|
-      cat[:hat] = false
-    end
-  end
-  if pass == 2
-    count = 1
-    cats.each do |cat|
-      if count == 1 || count % 2 > 0
-        cat[:hat] = true
-      end
-      count += 1
-    end
-  end
-  if pass == 3
-    count = 1
-    cats.each do |cat|
-      if count != 1 && count % 3 == 0
-        if cat[:hat] == true
-          cat[:hat] = false
-        else
-          cat[:hat] = true
-        end
-      end
-    end
-    p cats
-  end
-
+  cats=hat_swap(cats,pass)
   pass += 1
+end
+
+#p out the cats. I'd like to clean this up a bit.
+cats.each do |cat|
+  if cat[:hat]
+    puts "I'm a cat and I have a hat!"
+  else
+    puts "I'm a cat and I DO NOT have a hat!"
+  end
 end
