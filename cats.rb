@@ -20,15 +20,28 @@
 #hat_swap takes an array of hashes, and the pass, or number of times we have
 #iterated through the array. It then swaps the hats of every n-th cat, where
 #n is == pass. Once it's done, it returns the array.
+
+#need to look into this further, not sure if the loop is working the way I want it too
 def hat_swap(cats,pass)
-  count = 0
-  while count <= 99
-    if cats[count][:hat] #i think i can get rid of this true here
-      cats[count][:hat] = false
+  #if we are on pass 100, visit the 100th cat and swap his hat
+  if pass == 100
+    if cats[99][:hat]
+      cats[99][:hat] = false
     else
-      cats[count][:hat] = true
+      cats[99][:hat] = true
     end
-    count += pass
+
+  #otherwise, visit cat 1 and the the nth cat after him until we get to the end
+  else
+    count = 0
+    while count <= 99
+      if cats[count][:hat]
+        cats[count][:hat] = false
+      else
+        cats[count][:hat] = true
+      end
+      count += pass
+    end
   end
   return cats
 end
