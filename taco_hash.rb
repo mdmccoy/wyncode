@@ -12,6 +12,7 @@ menu = {
   sections: [
     {
       name: "Tacos",
+      description: "FRESHLY MADE BLUE CORN TORTILLAS",
       items: [
         {
           name: "Al Pastor",
@@ -62,14 +63,57 @@ menu = {
           name:"RAJAS",
           description:  "poblano, onion, crema, cotija",
           price:3.50
+        },
+        {
+          name:"CHAPULINES",
+          description: "grasshoppers, avocado, tajin",
+          price:3.50
         }
       ]
     },
     {
-      name: "Sides / Antojitos"
+      name: "Sides / Antojitos",
+      description: "",
+      items: [
+        {
+          name:"TOTOPOS",
+          description: "hand torn blue masa chips",
+          options: [
+            {
+              name:"guac",
+              price: 2.00
+            },
+            {
+              name:"frijoles",
+              price:+2.00
+            },
+            {
+              name:"salsa",
+              price:1.50
+            }
+          ],
+          price: 5.00
+        },
+        {
+          name:"ELOTE",
+          description:"charred corn, cilantro, jalapeno crema, cotija",
+          price: 5.00
+        },
+        {
+          name:"QUINOA",
+          description: "jicama, corn, scallion, chile, nopal dressing",
+          price:6.50
+        }
+      ]
+    },
+    {
+      name: "Beer / Cerveza"
       }]
     }
 
     puts menu[:sections][0][:name] # should output "Tacos"
     puts menu[:sections][1][:name]
     puts menu[:sections][0][:items][0][:name]
+    puts  menu[:sections][0][:items][0][:description] # should output "pork, achiote, pineapple"
+    #
+    puts menu[:sections][0][:items][0][:price] # should output 3.50
