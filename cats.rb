@@ -16,34 +16,22 @@
 #
 # Note: Cat emojis are not required. 🐶
 
+########WE START ON THE pass-cat each time, so on the 4th pass, start on the 4th cat and so on
 
 #hat_swap takes an array of hashes, and the pass, or number of times we have
 #iterated through the array. It then swaps the hats of every n-th cat, where
 #n is == pass. Once it's done, it returns the array.
-
-#need to look into this further, not sure if the loop is working the way I want it too
 def hat_swap(cats,pass)
-  #if we are on pass 100, visit the 100th cat and swap his hat
-  if pass == 100
-    if cats[99][:hat]
-      cats[99][:hat] = false
+  count = pass-1
+  while count <= 99 do
+    if cats[count][:hat]
+      cats[count][:hat] = false
     else
-      cats[99][:hat] = true
+      cats[count][:hat] = true
     end
-
-  #otherwise, visit cat 1 and the the nth cat after him until we get to the end
-  else
-    count = 0
-    while count <= 99
-      if cats[count][:hat]
-        cats[count][:hat] = false
-      else
-        cats[count][:hat] = true
-      end
-      count += pass
-    end
+    count +=  pass
   end
-  return cats
+  cats
 end
 
 #intialize our pass variable and our array of cats
@@ -52,18 +40,22 @@ cats = []
 100.times do
   cats << { hat: true }
 end
+puts "Hatted the cats!"
 
 #make 100 passes on the cats, swapping hats along the way
 100.times do
+  p pass
   cats=hat_swap(cats,pass)
   pass += 1
 end
 
 #p out the cats. I'd like to clean this up a bit.
+count = 1
 cats.each do |cat|
   if cat[:hat]
-    puts "I'm a cat and I have a hat!"
+    puts "I'm cat #{count} and I have a hat!"
   else
-    puts "I'm a cat and I DO NOT have a hat!"
+    puts "I'm cat #{count} and I DO NOT have a hat!"
   end
+  count += 1
 end
