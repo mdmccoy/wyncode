@@ -82,3 +82,64 @@
 ############################
 ############################
 ############################
+#
+# You are given an array strarr of strings and an integer k. Your task is to return the first longest string consisting of k consecutive strings taken in the array.
+#
+# #Example: longest_consec(["zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"], 2) --> "abigailtheta"
+#
+# n being the length of the string array, if n = 0 or k > n or k <= 0 return "".
+
+############################
+###########################
+###########################
+
+# def longest_consec(strarr, k)
+#   count = 0
+#   longest = ""
+#   if strarr.length == 0 or k > strarr.length or k <= 0
+#     return ""
+#   end
+#   while count <= strarr.length-k do
+#     my_arr = strarr.slice(count,k)
+#     #slice out K elements? and then join?
+#     unless my_arr.nil? && my_arr.length > k
+#       if my_arr.join.length > longest.length
+#         longest = my_arr.join
+#       end
+#     end
+#     count += 1
+#   end
+#   longest
+# end
+#
+# p longest_consec(["zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"], 2)
+
+############################
+###########################
+###########################
+
+# You will be given a number and you will need to return it as a string in Expanded Form. For example: THIS FUCKING WORKS BUT DIGITS DOESN'T EXIST IN Ruby 2.3.1
+# def expanded_form(num)
+#   return_arr = []
+#   base = 1
+#   num.digits.each do |digit|
+#     return_arr << (digit * base) if digit > 0
+#     base *= 10
+#   end
+#   return_arr.reverse.join(" + ")
+# end
+def expanded_form(num)
+  return_arr = []
+  base = 1
+  num.to_s.split("").reverse.each do |digit|
+    return_arr << (digit.to_i * base) if digit.to_i > 0
+    base *= 10
+  end
+  return_arr.reverse.join(" + ")
+end
+
+#
+ p expanded_form(12); # Should return '10 + 2'
+ p expanded_form(42); # Should return '40 + 2'
+ p expanded_form(70304); # Should return '70000 + 300 + 4'
+# NOTE: All numbers will be whole numbers greater than 0.

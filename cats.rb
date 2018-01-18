@@ -44,18 +44,24 @@ puts "Hatted the cats!"
 
 #make 100 passes on the cats, swapping hats along the way
 100.times do
-  p pass
   cats=hat_swap(cats,pass)
   pass += 1
 end
 
 #p out the cats. I'd like to clean this up a bit.
 count = 1
+hatted = 0
+bald = 0
 cats.each do |cat|
   if cat[:hat]
     puts "I'm cat #{count} and I have a hat!"
+    hatted += 1
   else
     puts "I'm cat #{count} and I DO NOT have a hat!"
+    bald +=1
   end
   count += 1
 end
+
+p hatted
+p bald
