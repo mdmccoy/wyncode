@@ -37,8 +37,14 @@ class BankAccount
   def transfer(amount, recepient_account)
     @transaction_log << (-amount)
     recepient_account.transaction_log << amount
+    write_to_log(self,'w')
+    write_to_log(recepient_account,'w')
     @balance -= amount
     recepient_account.balance += amount
+  end
+
+  def recover
+    File.open(@name + "_history.txt","r").each_line {|line| @transaction_log << line.chomp.to_i}
   end
 
   def self.minimum_balance
