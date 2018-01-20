@@ -1,5 +1,6 @@
 class BankAccount
   attr_accessor :balance,:transaction_log
+  attr_reader :name
 
   @@minimum_balance
   @@overdraft_fee = 10
@@ -13,11 +14,12 @@ class BankAccount
     end
     @name = name
     @transaction_log = [balance]
-    File.open("bankAccount_history.txt",'a')
+    write_to_log(self,'w')
   end
 
   def deposit(amount)
     @transaction_log << amount
+    write_to_log(self,'w')
     @balance += amount
   end
 
@@ -28,6 +30,7 @@ class BankAccount
     else
       @balance -= amount
     end
+    write_to_log(self,'w')
     @balance
   end
 
@@ -52,6 +55,14 @@ class BankAccount
 
   def self.overdraft_fee=(new_fee)
     @@overdraft_fee = new_fee
+  end
+
+  private
+  def write_to_log(account,write_operation)
+    File.open(account.name + "_history.txt",write_operation) do |account_file|
+      account_file.puts account.transaction_log
+    end
+    # File.close(account.name + "_history.txt")
   end
 
 end

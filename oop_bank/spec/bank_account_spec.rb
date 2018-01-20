@@ -92,9 +92,9 @@ describe BankAccount do
   end
 
   context "transaction history" do
-    let(:account) {account = BankAccount.new(500,"Matt")}
+    let(:account) {BankAccount.new(500,"Matt")}
 
-    let(:account2) {account = BankAccount.new(500,"Steve")}
+    let(:account2) {BankAccount.new(500,"Steve")}
 
     it "log account creation" do
       expect(account.transaction_log).to eq([500])
@@ -121,23 +121,44 @@ describe BankAccount do
   end
 
   context "store and recover accounts" do
-    let(:account) do
-      account = BankAccount.new(500,"Matt")
-    end
+    let(:account) {BankAccount.new(500,"Matt")}
+    let(:account2) {BankAccount.new(500,"Steve")}
 
     let(:history) do
-      history = File.open("bankAccount_history.txt","r")
-      # #history = File.open("bankAccount_history.txt","r") do |bank_acct_history|
-      #   while line = bank_acct_history.gets
-      #   end
-      # end
+      trans_log = []
+      File.open(account.name + "_history.txt","r").each_line {|line| trans_log << line.chomp.to_i}
+      trans_log
     end
 
-    it "banks accounts should write their transaction history to files" do
-      #we expect that after opening a new account, we read from the file and it should have @name and @transaction_log in what format
-      expect(history).to be_a(File)
+    let(:history2) do
+      trans_log = []
+      File.open(account2.name + "_history.txt","r").each_line {|line| trans_log << line.chomp.to_i}
+      trans_log
     end
 
-    it "recover a bank account from file"
+    context "write transaction history to file" do
+      it "write transaction history to file on creation" do
+        expect(history).to eq([500])
+      end
+
+      it "write transaction history to file on withdraw" do
+        account.withdraw(100)
+        expect(history).to eq([500,-100])
+      end
+
+      it "write transaction history to file on deposit" do
+        account.deposit(250)
+        expect(history).to eq([500,250])
+      end
+
+      it "write transaction history to relevant files on transfer" do
+        account.transfer(250,account2)
+        expect(history).to eq([500,-250])
+      end
+
+      it "recover a bank account from file"
+    end
   end
+
+
 end
