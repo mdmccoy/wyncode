@@ -14,31 +14,27 @@ class BankAccount
     end
     @name = name
     @transaction_log = [balance]
-    write_to_log(self,'w')
+    BankAccount.write_to_log(self)
   end
 
   def deposit(amount)
     @transaction_log << amount
-    write_to_log(self,'w')
+    BankAccount.write_to_log(self)
     @balance += amount
   end
 
   def withdraw(amount)
     @transaction_log << (-amount)
-    if @balance < amount
-      @balance -= amount - (-@@overdraft_fee)
-    else
-      @balance -= amount
-    end
-    write_to_log(self,'w')
+    @balance < amount ?  @balance -= amount - (-@@overdraft_fee) : @balance -= amount
+    BankAccount.write_to_log(self)
     @balance
   end
 
   def transfer(amount, recepient_account)
     @transaction_log << (-amount)
     recepient_account.transaction_log << amount
-    write_to_log(self,'w')
-    write_to_log(recepient_account,'w')
+    BankAccount.write_to_log(self)
+    BankAccount.write_to_log(recepient_account)
     @balance -= amount
     recepient_account.balance += amount
   end
@@ -64,8 +60,8 @@ class BankAccount
   end
 
   private
-  def write_to_log(account,write_operation)
-    File.open(account.name + "_history.txt",write_operation) do |account_file|
+  def self.write_to_log(account)
+    File.open(account.name + "_history.txt",'w') do |account_file|
       account_file.puts account.transaction_log
     end
     # File.close(account.name + "_history.txt")

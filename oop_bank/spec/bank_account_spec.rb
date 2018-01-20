@@ -142,12 +142,6 @@ describe BankAccount do
       trans_log
     end
 
-    # let(:history2) do
-    #   trans_log = []
-    #   File.open(account2.name + "_history.txt","r").each_line {|line| trans_log << line.chomp.to_i}
-    #   trans_log
-    # end
-
     context "write transaction history to file" do
       it "write transaction history to file on creation" do
         expect(history).to eq([500])
@@ -163,10 +157,20 @@ describe BankAccount do
         expect(history).to eq([500,250])
       end
 
+      context "Write transfers between accounts to files" do
 
-      it "write transaction history to relevant files on transfer" do
-        account.transfer(250,account2)
-        expect(history).to eq([500,-250])
+        before :each do
+          account.transfer(250,account2)
+        end
+
+        it "one account has a withraw logged in its transaction file" do
+          expect(history).to eq([500,-250])
+        end
+
+        it "other account as a deposit logged in its transaction file" do
+          expect(history2).to eq([500,250])
+        end
+
       end
     end
 
