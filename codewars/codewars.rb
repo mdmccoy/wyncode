@@ -128,18 +128,34 @@
 #   end
 #   return_arr.reverse.join(" + ")
 # end
-def expanded_form(num)
-  return_arr = []
-  base = 1
-  num.to_s.split("").reverse.each do |digit|
-    return_arr << (digit.to_i * base) if digit.to_i > 0
-    base *= 10
-  end
-  return_arr.reverse.join(" + ")
+# def expanded_form(num)
+#   return_arr = []
+#   base = 1
+#   num.to_s.split("").reverse.each do |digit|
+#     return_arr << (digit.to_i * base) if digit.to_i > 0
+#     base *= 10
+#   end
+#   return_arr.reverse.join(" + ")
+# end
+#
+# #
+#  p expanded_form(12); # Should return '10 + 2'
+#  p expanded_form(42); # Should return '40 + 2'
+#  p expanded_form(70304); # Should return '70000 + 300 + 4'
+# # NOTE: All numbers will be whole numbers greater than 0.
+
+################################
+#################################
+################################
+#
+# Implement the function unique_in_order which takes as argument a sequence and returns a list of items without any elements with the same value next to each other and preserving the original order of elements.
+#
+def unique_in_order(arg)
+
 end
 
+
 #
- p expanded_form(12); # Should return '10 + 2'
- p expanded_form(42); # Should return '40 + 2'
- p expanded_form(70304); # Should return '70000 + 300 + 4'
-# NOTE: All numbers will be whole numbers greater than 0.
+# unique_in_order('AAAABBBCCDAABBB') #== ['A', 'B', 'C', 'D', 'A', 'B']
+# unique_in_order('ABBCcAD')        # == ['A', 'B', 'C', 'c', 'A', 'D']
+# unique_in_order([1,2,2,3,3])      # == [1,2,3]
