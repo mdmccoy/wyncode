@@ -4,7 +4,6 @@ describe BankAccount do
   context "has a balance" do
     let(:account) {account = BankAccount.new(500, "Sarah")}
 
-
     it "is created with an opening balance and the name of the client" do
       expect(account).to be_a(BankAccount)
     end
@@ -14,21 +13,116 @@ describe BankAccount do
     end
   end
 
+  context "making a deposit" do
+    let(:account) do
+      account = BankAccount.new(500,"Sarah")
+      account.deposit(500)
+      account
+    end
 
+    it "balance is increased" do
+      expect(account.balance).to eq(1000)
+    end
+  end
 
+  context "making a withdrawal" do
+    let(:account) do
+      account = BankAccount.new(500,"Sarah")
+      account.withdraw(200)
+      account
+    end
 
-  context "making a deposit"
-  it "balance is increased"
+    it "balance is decreased" do
+      expect(account.balance).to eq(300)
+    end
+  end
 
-  context "making a withdrawal"
-  it "balance is decreased"
+  context "transfering funds" do
+    let(:account1) do
+      account1 = BankAccount.new(500,"Sarah")
+    end
 
-  context "transfering funds"
-  it "account balance is decreased"
-  it "other account balance is increased"
+    let(:account2) do
+      account2 = BankAccount.new(500,"Matt")
+    end
 
-  context "minimum balance"
-  it "raises an error if opening balance is too low"
-  it "does NOT raise an error if opening balance is over minimum balance"
-  it "allows the bank owner to change the minimum balance"
+    before :each do
+      account1.transfer(200,account2)
+    end
+
+    it "account balance is decreased" do
+      expect(account1.balance).to eq(300)
+    end
+
+    it "other account balance is increased" do
+      expect(account2.balance).to eq(700)
+    end
+  end
+
+  context "minimum balance" do
+    it "raises an error if opening balance is too low" do
+      expect {BankAccount.new(100, "Sarah")}.to raise_error(ArgumentError)
+    end
+
+    it "does NOT raise an error if opening balance is over minimum balance" do
+      expect {BankAccount.new(300, "Sarah")}.not_to raise_error
+    end
+
+    it "allows the bank owner to change the minimum balance" do
+      BankAccount.minimum_balance = 100
+      expect(BankAccount.minimum_balance).to eq(100)
+    end
+  end
+
+  context "overdraft" do
+    let(:account) do
+      account = BankAccount.new(200,"Matt")
+      account.withdraw(300)
+      account
+    end
+
+    it "charges the client a fee if they overdraft" do
+      expect(account.balance).to eq(-110)
+    end
+
+    it "allows the bank manager to change the overdraft fee" do
+      BankAccount.overdraft_fee = 20
+      expect(BankAccount.overdraft_fee).to eq(20)
+    end
+  end
+
+  context "transaction history" do
+    let(:account) {account = BankAccount.new(500,"Matt")}
+
+    let(:account2) {account = BankAccount.new(500,"Steve")}
+
+    it "log account creation" do
+      expect(account.transaction_log).to eq([500])
+    end
+
+    it "log withdraw" do
+      account.withdraw(100)
+      expect(account.transaction_log).to eq([500,-100])
+    end
+
+    it "log deposit" do
+      account.deposit(100)
+      expect(account.transaction_log).to eq([500,100])
+    end
+
+    it "log transfers" do
+      account.transfer(100,account2)
+      expect(account.transaction_log).to eq([500,-100])
+    end
+
+    it "allows us to view the transaction history" do
+      expect(account.transaction_log).to eq([500])
+    end
+  end
+
+  context "store and recover accounts" do
+    it "banks accounts should write their transaction history to files"
+
+    it "recover a bank account from file"
+  end
 end
