@@ -13,6 +13,7 @@ class BankAccount
     end
     @name = name
     @transaction_log = [balance]
+    File.open("bankAccount_history.txt",'a')
   end
 
   def deposit(amount)

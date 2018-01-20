@@ -121,7 +121,22 @@ describe BankAccount do
   end
 
   context "store and recover accounts" do
-    it "banks accounts should write their transaction history to files"
+    let(:account) do
+      account = BankAccount.new(500,"Matt")
+    end
+
+    let(:history) do
+      history = File.open("bankAccount_history.txt","r")
+      # #history = File.open("bankAccount_history.txt","r") do |bank_acct_history|
+      #   while line = bank_acct_history.gets
+      #   end
+      # end
+    end
+
+    it "banks accounts should write their transaction history to files" do
+      #we expect that after opening a new account, we read from the file and it should have @name and @transaction_log in what format
+      expect(history).to be_a(File)
+    end
 
     it "recover a bank account from file"
   end
