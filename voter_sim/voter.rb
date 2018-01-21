@@ -7,7 +7,7 @@ class Voter < Person
 
 
   def self.party_select(party)
-    case party
+    case party.downcase
     when "l"
       "Liberal"
     when "c"
