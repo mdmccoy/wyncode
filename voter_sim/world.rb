@@ -1,5 +1,6 @@
 require_relative 'voter'
 require_relative 'politician'
+require 'pry'
 
 
 class World
@@ -12,9 +13,14 @@ class World
     gets.chomp
   end
 
+  def search(array,name)
+    array.each { |person| return person if person.name == name }
+    nil
+  end
+
   def main_menu
     puts "\nWhat would you like to do?\n(C)reate, (L)ist, (U)pdate, or (D)elete"
-    case get_input
+    case get_input.downcase
     when "c"
       create
     when "l"
@@ -34,12 +40,10 @@ class World
     case input.downcase
     when "p"
       puts "\nWhat is the political party?\n(D)emocrat or (R)epublican?"
-      party = get_input
-      @politicians << Politician.new(name,party)
+      @politicians << Politician.new(name,Politician.party_select(get_input))
     when "v"
       puts "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
-      party = get_input
-      @voters << Voter.new(name,party)
+      @voters << Voter.new(name,Politician.party_select(get_input))
     end
     main_menu
   end
@@ -58,26 +62,48 @@ class World
     puts "\nWho would you like to update?"
     name = get_input
 
-    @politicians.each do |pol|
-      if name == pol.name
-        puts "\nNew Party?"
-        pol.party = get_input
-      end
+    politician = search(@politicians,name)
+    if politician.is_a? Politician
+      puts "\nNew Party?"
+      politician.party = Politician.party_select(get_input)
     end
 
-    @voters.each do |voter|
-      if name == voter.name
-        puts "\nNew Politics?"
-        voter.party = get_input
-      end
+    voter = search(@voters,name)
+    if voter.is_a? Voter
+      puts "\nNew Politics?"
+      voter.party = Voter.party_select(get_input)
     end
 
     main_menu
   end
 
-  def delete
 
+
+  def delete
+    puts "\nWho would you like to delete?"
+    name = get_input
+
+    @politicians.each do |pol|
+      if name == pol.name
+        puts "\nAre you sure?\n(Y)es"
+        if get_input == "y"
+          @politicians.delete(pol)
+        end
+      end
+    end
+
+    @voters.each do |voter|
+      if name == voter.name
+        puts "\nAre you sure?\n(Y)es"
+        if get_input == "y"
+          @voters.delete(voter)
+        end
+      end
+    end
+
+    main_menu
   end
 end
+
 
 World.new.main_menu

@@ -2,17 +2,22 @@ require_relative 'person'
 
 class Voter < Person
   def initialize(name,party)
+    super(name,party)
+  end
+
+
+  def self.party_select(party)
     case party
     when "l"
-      super(name,"Liberal")
+      "Liberal"
     when "c"
-      super(name,"Conservative")
+      "Conservative"
     when "t"
-      super(name,"Tea Party")
+      "Tea Party"
     when "s"
-      super(name,"Socialist")
+      "Socialist"
     when "n"
-      super(name,"Neutral")
+      "Neutral"
     end
   end
 end
