@@ -1,7 +1,8 @@
 class Person
-  attr_reader :name
+  attr_accessor :name,:party
 
-  def initialize(name)
+  def initialize(name,party)
     @name = name
+    @party = party
   end
 end

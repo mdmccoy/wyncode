@@ -1,10 +1,18 @@
 require_relative 'person'
 
 class Voter < Person
-  attr_reader :pol_affil
-
-  def initialize(name,pol_affil)
-    super(name)
-    @pol_affil = pol_affil
+  def initialize(name,party)
+    case party
+    when "l"
+      super(name,"Liberal")
+    when "c"
+      super(name,"Conservative")
+    when "t"
+      super(name,"Tea Party")
+    when "s"
+      super(name,"Socialist")
+    when "n"
+      super(name,"Neutral")
+    end
   end
 end

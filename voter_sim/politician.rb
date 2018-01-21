@@ -1,10 +1,12 @@
 require_relative 'person'
 
 class Politician < Person
-  attr_reader :party
-
   def initialize(name,party)
-    super(name)
-    @party = party
+    case party
+    when "d"
+      super(name,"Democrat")
+    when "r"
+      super(name,"Republican")
+    end
   end
 end

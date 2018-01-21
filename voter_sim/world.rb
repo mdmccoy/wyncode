@@ -22,7 +22,7 @@ class World
     when "u"
       update
     when "d"
-      destroy
+      delete
     end
   end
 
@@ -39,7 +39,7 @@ class World
     when "v"
       puts "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
       party = get_input
-      @voters =  Voter.new(name,party)
+      @voters << Voter.new(name,party)
     end
     main_menu
   end
@@ -49,16 +49,33 @@ class World
       puts "#{pol.class}, #{pol.name}, #{pol.party}"
     end
     @voters.each do |voter|
-      puts "#{voter.class}, #{voter.name}, #{voter.pol_affil}"
+      puts "#{voter.class}, #{voter.name}, #{voter.party}"
     end
     main_menu
   end
 
   def update
+    puts "\nWho would you like to update?"
+    name = get_input
 
+    @politicians.each do |pol|
+      if name == pol.name
+        puts "\nNew Party?"
+        pol.party = get_input
+      end
+    end
+
+    @voters.each do |voter|
+      if name == voter.name
+        puts "\nNew Politics?"
+        voter.party = get_input
+      end
+    end
+
+    main_menu
   end
 
-  def destry
+  def delete
 
   end
 end
