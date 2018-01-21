@@ -1,15 +1,44 @@
+require 'uri'
+
 class UrlParser
   def initialize(url)
-    @url = url
+    @uri = URI.split(url)
   end
 
   def scheme
-    @url.split(":")[0]
+    @uri[0]
   end
 
   def domain
-    @url.split(":")[1].split("//")[1]
+    @uri[2]
   end
 
-  
+  def port
+    if @uri[3]
+      @uri[3]
+    elsif @uri[0] == "http"
+      "80"
+    elsif @uri[0] == "https"
+      "443"
+    end
+  end
+
+  def path
+    @uri[5][/\w+/]
+  end
+
+  def query_string
+    array = @uri[7].split(/\W+/)
+    hash = {}
+    i = 0
+    while i < array.length do
+      hash[array[i]] = array[i+1]
+      i += 2
+    end
+    hash
+  end
+
+  def fragment_id
+    @uri[8]
+  end
 end
