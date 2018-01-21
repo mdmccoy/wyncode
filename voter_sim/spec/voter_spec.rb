@@ -9,5 +9,7 @@ describe Voter do
     it "Can be updated."
 
     it "Can be deleted."
+
+    it "Has the correct political affiliation."
   end
 end
