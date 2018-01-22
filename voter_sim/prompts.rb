@@ -1,45 +1,39 @@
 module Prompts
   #puts prompt to screen, gets input and returns a single character
   def main_menu_prompt
-    puts "\nWhat would you like to do?\n(C)reate, (L)ist, (U)pdate, or (D)elete"
-    gets_down
+    ask_downcase "\nWhat would you like to do?\n(C)reate, (L)ist, (U)pdate, or (D)elete\n"
   end
 
   def person_type
-    puts "\nWhat would you like to create?\n(P)olitician or (V)oter"
-    gets_down
+    ask_downcase "\nWhat would you like to create?\n(P)olitician or (V)oter\n"
   end
 
   def get_name
-    puts "\nWhat is the name?"
-    my_gets
+    ask "\nWhat is the name?\n"
   end
 
   def modify_person(modification)
-    puts "\nWho would you like to #{modification}?"
-    my_gets
+    ask "\nWho would you like to #{modification}?\n"
   end
 
   def confirmation
-    puts "\nAre you sure? (Y/N)"
-    gets_down
+    ask_downcase "\nAre you sure? (Y/N)\n"
   end
 
   def politician_party
-    puts "\nWhat is the political party?\n(D)emocrat or (R)epublican?"
-    gets_down
+    ask_downcase "\nWhat is the political party?\n(D)emocrat or (R)epublican?\n"
   end
 
   def voter_party
-    puts "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
-    gets_down
+    ask_downcase "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?\n"
   end
 
-  def gets_down
-    my_gets.downcase
+  def ask_downcase(*question)
+    ask(*question).downcase
   end
 
-  def my_gets
+  def ask(*question)
+    print(*question)
     gets.chomp
   end
 

@@ -68,14 +68,12 @@ class World
     name = modify_person("update")
 
     #search the @politicians array and see if the requested name is present. If it is, let us change the party.
-    politician = search(@politicians,name)[0]
-    if politician
+    if politician = search(@politicians,name)[0]
       politician.party = Politician.party_select(politician_party)
     end
 
     #search the @voters array and see if the requested name is present. If it is, let us change the party.
-    voter = search(@voters,name)[0]
-    if voter
+    if voter = search(@voters,name)[0]
       voter.party = Voter.party_select(voter_party)
     end
 
@@ -86,16 +84,16 @@ class World
   def delete
     name = modify_person("delete")
 
-    #search the @politicians array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
-    politician = search(@politicians,name)[0]
-    if politician
-      @politicians.delete(politician) if confirmation == "y"
+    #search the @politicians array and see if the requested name is present.If it is, check to make sure we want to delete it before doing so.
+
+    if politician = search(@politicians,name)[0]
+      @politicians.delete(politician) ; puts "\nDeleted!" if confirmation == "y"
+
     end
 
     #search the @voters array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
-    voter = search(@voters,name)[0]
-    if voter
-      @voters.delete(voter) if confirmation == "y"
+    if voter = search(@voters,name)[0]
+      @voters.delete(voter) ; puts "\nDeleted!" if confirmation == "y"
     end
 
     #return to main_menu
