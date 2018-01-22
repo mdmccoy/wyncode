@@ -1,5 +1,6 @@
 require_relative 'voter'
 require_relative 'politician'
+require './prompts'
 #require 'pry'
 
 
@@ -20,8 +21,7 @@ class World
   end
 
   def main_menu
-    puts "\nWhat would you like to do?\n(C)reate, (L)ist, (U)pdate, or (D)elete"
-    case get_input.downcase
+    case Prompts.main_menu
     when "c"
       create
     when "l"
@@ -39,24 +39,18 @@ class World
   #create a new politician or voter and add them to our world
   def create
     #get some of the information we need to make a new person
-    puts "\nWhat would you like to create?\n(P)olitician or (V)oter"
-    input = get_input.downcase
-    puts "\nWhat is the name?"
-    name = get_input
 
-    case input
+    input = Prompts.create_person
+
+
+    case input[0]
     when "p"
-      puts "\nWhat is the political party?\n(D)emocrat or (R)epublican?"
-
       #grab the last piece of info that we need, the party, and pass it to party_select to get the full string. Then create a new politician, then put that politician into our array
-      @politicians << Politician.new(name,Politician.party_select(get_input))
+      @politicians << Politician.new(input[1],Politician.party_select(input[2]))
       puts "\nPolitician added to the world."
-
     when "v"
-      puts "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
-
       #grab the last piece of info that we need, the party, and pass it to party_select to get the full string. Then create a new voter, then put that voter into our array
-      @voters << Voter.new(name,Voter.party_select(get_input))
+      @voters << Voter.new(input[1],Voter.party_select(input[2]))
       puts "\nVoter added to the world."
     end
 
@@ -79,8 +73,7 @@ class World
 
   #allows us to update existing perople
   def update
-    puts "\nWho would you like to update?"
-    name = get_input
+    name = Prompts.update_person
 
     #search the @politicians array and see if the requested name is present. If it is, let us change the party.
     politician = search(@politicians,name)
