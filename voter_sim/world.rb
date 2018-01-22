@@ -42,7 +42,6 @@ class World
 
     input = Prompts.create_person
 
-
     case input[0]
     when "p"
       #grab the last piece of info that we need, the party, and pass it to party_select to get the full string. Then create a new politician, then put that politician into our array
@@ -73,20 +72,19 @@ class World
 
   #allows us to update existing perople
   def update
-    name = Prompts.update_person
+    name = Prompts.update_person()
 
     #search the @politicians array and see if the requested name is present. If it is, let us change the party.
     politician = search(@politicians,name)
     if politician.is_a? Politician
-      puts "\nNew Party?\n(D)emocrat or (R)epublican?"
-      politician.party = Politician.party_select(get_input)
+      politician.party = Politician.party_select(Prompts.politician_party)
     end
 
     #search the @voters array and see if the requested name is present. If it is, let us change the party.
     voter = search(@voters,name)
     if voter.is_a? Voter
-      puts "\nNew Politics?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
-      voter.party = Voter.party_select(get_input)
+      #puts "\nNew Politics?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
+      voter.party = Voter.party_select(Prompts.voter_party)
     end
 
     #return to main_menu
