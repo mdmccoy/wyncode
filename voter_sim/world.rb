@@ -94,21 +94,19 @@ class World
 
 
   def delete
-    puts "\nWho would you like to delete?"
-    name = get_input
+    #puts "\nWho would you like to delete?"
+    name = Prompts.delete_person
 
     #search the @politicians array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
     politician = search(@politicians,name)
     if politician.is_a? Politician
-      puts "\nAre you sure?\n(Y)es"
-      @politicians.delete(politician) if get_input == "y"
+      @politicians.delete(politician) if Prompts.confirmation == "y"
     end
 
     #search the @voters array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
     voter = search(@voters,name)
     if voter.is_a? Voter
-      puts "\nAre you sure?\n(Y)es"
-      @voters.delete(voter) if get_input == "y"
+      @voters.delete(voter) if Prompts.confirmation == "y"
     end
 
     #return to main_menu
