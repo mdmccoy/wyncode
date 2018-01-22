@@ -56,7 +56,7 @@ class World
       puts "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
 
       #grab the last piece of info that we need, the party, and pass it to party_select to get the full string. Then create a new voter, then put that voter into our array
-      @voters << Voter.new(name,Politician.party_select(get_input))
+      @voters << Voter.new(name,Voter.party_select(get_input))
       puts "\nVoter added to the world."
     end
 
@@ -85,14 +85,14 @@ class World
     #search the @politicians array and see if the requested name is present. If it is, let us change the party.
     politician = search(@politicians,name)
     if politician.is_a? Politician
-      puts "\nNew Party?"
+      puts "\nNew Party?\n(D)emocrat or (R)epublican?"
       politician.party = Politician.party_select(get_input)
     end
 
     #search the @voters array and see if the requested name is present. If it is, let us change the party.
     voter = search(@voters,name)
     if voter.is_a? Voter
-      puts "\nNew Politics?"
+      puts "\nNew Politics?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
       voter.party = Voter.party_select(get_input)
     end
 
@@ -110,7 +110,7 @@ class World
     politician = search(@politicians,name)
     if politician.is_a? Politician
       puts "\nAre you sure?\n(Y)es"
-      @politicians.delete(pol) if get_input == "y"
+      @politicians.delete(politician) if get_input == "y"
     end
 
     #search the @voters array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
