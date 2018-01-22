@@ -15,15 +15,8 @@ module Prompts
     gets.chomp
   end
 
-  #puts update prompt to screen and returns an array with the answers
-  def self.update_person()
-    #input = []
-    puts "\nWho would you like to update?"
-    gets.chomp
-  end
-
-  def self.delete_person
-    puts "\nWho would you like to delete?"
+  def self.modify_person(modification)
+    puts "\nWho would you like to #{modification}?"
     gets.chomp
   end
 

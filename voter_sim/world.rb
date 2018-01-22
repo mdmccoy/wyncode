@@ -63,7 +63,7 @@ class World
 
   #allows us to update existing perople
   def update
-    name = Prompts.update_person()
+    name = Prompts.modify_person("update")
 
     #search the @politicians array and see if the requested name is present. If it is, let us change the party.
     politician = search(@politicians,name)[0]
@@ -82,7 +82,7 @@ class World
   end
 
   def delete
-    name = Prompts.delete_person
+    name = Prompts.modify_person("delete")
 
     #search the @politicians array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
     politician = search(@politicians,name)[0]
