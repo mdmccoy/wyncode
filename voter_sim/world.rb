@@ -1,6 +1,6 @@
 require_relative 'voter'
 require_relative 'politician'
-require './prompts'
+require 'prompts'
 #require 'pry'
 
 
@@ -8,10 +8,6 @@ class World
   def initialize
     @voters = []
     @politicians = []
-  end
-
-  def get_input
-    gets.chomp
   end
 
   #searches through an array for a specific voter/politician and return the first copy, return nil if we don't find anything
@@ -38,17 +34,14 @@ class World
 
   #create a new politician or voter and add them to our world
   def create
-    #get some of the information we need to make a new person
-
+    #get all of the information we need to make a new person
     input = Prompts.create_person
 
     case input[0]
     when "p"
-      #grab the last piece of info that we need, the party, and pass it to party_select to get the full string. Then create a new politician, then put that politician into our array
       @politicians << Politician.new(input[1],Politician.party_select(input[2]))
       puts "\nPolitician added to the world."
     when "v"
-      #grab the last piece of info that we need, the party, and pass it to party_select to get the full string. Then create a new voter, then put that voter into our array
       @voters << Voter.new(input[1],Voter.party_select(input[2]))
       puts "\nVoter added to the world."
     end
@@ -66,7 +59,6 @@ class World
       puts "#{voter.class}, #{voter.name}, #{voter.party}"
     end
 
-    #return to main_menu
     main_menu
   end
 
@@ -83,7 +75,6 @@ class World
     #search the @voters array and see if the requested name is present. If it is, let us change the party.
     voter = search(@voters,name)
     if voter.is_a? Voter
-      #puts "\nNew Politics?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?"
       voter.party = Voter.party_select(Prompts.voter_party)
     end
 
@@ -91,10 +82,7 @@ class World
     main_menu
   end
 
-
-
   def delete
-    #puts "\nWho would you like to delete?"
     name = Prompts.delete_person
 
     #search the @politicians array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
@@ -113,6 +101,5 @@ class World
     main_menu
   end
 end
-
 
 World.new.main_menu
