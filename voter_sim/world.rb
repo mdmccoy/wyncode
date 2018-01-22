@@ -5,6 +5,8 @@ require_relative 'prompts'
 
 
 class World
+  include Prompts
+
   def initialize
     @voters = []
     @politicians = []
@@ -16,7 +18,7 @@ class World
   end
 
   def main_menu
-    case Prompts.main_menu
+    case main_menu_prompt
     when "c"
       create
     when "l"
@@ -34,12 +36,12 @@ class World
   #create a new politician or voter and add them to our world
   def create
     #get all of the information we need to make a new person
-    case Prompts.person_type
+    case person_type
     when "p"
-      @politicians << Politician.new(Prompts.get_name,Politician.party_select(Prompts.politician_party))
+      @politicians << Politician.new(get_name,Politician.party_select(politician_party))
       puts "\nPolitician added to the world."
     when "v"
-      @voters << Voter.new(Prompts.get_name,Voter.party_select(Prompts.voter_party))
+      @voters << Voter.new(Prompts.get_name,Voter.party_select(voter_party))
       puts "\nVoter added to the world."
     end
 
@@ -63,18 +65,18 @@ class World
 
   #allows us to update existing perople
   def update
-    name = Prompts.modify_person("update")
+    name = modify_person("update")
 
     #search the @politicians array and see if the requested name is present. If it is, let us change the party.
     politician = search(@politicians,name)[0]
     if politician
-      politician.party = Politician.party_select(Prompts.politician_party)
+      politician.party = Politician.party_select(politician_party)
     end
 
     #search the @voters array and see if the requested name is present. If it is, let us change the party.
     voter = search(@voters,name)[0]
     if voter
-      voter.party = Voter.party_select(Prompts.voter_party)
+      voter.party = Voter.party_select(voter_party)
     end
 
     #return to main_menu
@@ -82,18 +84,18 @@ class World
   end
 
   def delete
-    name = Prompts.modify_person("delete")
+    name = modify_person("delete")
 
     #search the @politicians array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
     politician = search(@politicians,name)[0]
     if politician
-      @politicians.delete(politician) if Prompts.confirmation == "y"
+      @politicians.delete(politician) if confirmation == "y"
     end
 
     #search the @voters array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
     voter = search(@voters,name)[0]
     if voter
-      @voters.delete(voter) if Prompts.confirmation == "y"
+      @voters.delete(voter) if confirmation == "y"
     end
 
     #return to main_menu
