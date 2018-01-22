@@ -1,24 +1,18 @@
-class Prompts
-
+module Prompts
   #puts prompt to screen, gets input and returns a single character
   def self.main_menu
     puts "\nWhat would you like to do?\n(C)reate, (L)ist, (U)pdate, or (D)elete"
     gets.chomp.downcase
   end
 
-  #puts create prompt to screen and returns an array with the answers
-  def self.create_person
-    input = []
+  def self.person_type
     puts "\nWhat would you like to create?\n(P)olitician or (V)oter"
-    input << gets.chomp.downcase
+    gets.chomp.downcase
+  end
+
+  def self.get_name
     puts "\nWhat is the name?"
-    input << gets.chomp
-    case input[0]
-    when "p"
-      input << Prompts.politician_party
-    when "v"
-      input << Prompts.voter_party
-    end
+    gets.chomp
   end
 
   #puts update prompt to screen and returns an array with the answers

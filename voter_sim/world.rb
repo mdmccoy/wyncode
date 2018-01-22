@@ -1,6 +1,6 @@
 require_relative 'voter'
 require_relative 'politician'
-require 'prompts'
+require_relative 'prompts'
 #require 'pry'
 
 
@@ -12,8 +12,7 @@ class World
 
   #searches through an array for a specific voter/politician and return the first copy, return nil if we don't find anything
   def search(array,name)
-    array.each { |person| return person if person.name == name }
-    nil
+    array.select { |person| person if person.name == name }
   end
 
   def main_menu
@@ -35,14 +34,12 @@ class World
   #create a new politician or voter and add them to our world
   def create
     #get all of the information we need to make a new person
-    input = Prompts.create_person
-
-    case input[0]
+    case Prompts.person_type
     when "p"
-      @politicians << Politician.new(input[1],Politician.party_select(input[2]))
+      @politicians << Politician.new(Prompts.get_name,Politician.party_select(Prompts.politician_party))
       puts "\nPolitician added to the world."
     when "v"
-      @voters << Voter.new(input[1],Voter.party_select(input[2]))
+      @voters << Voter.new(Prompts.get_name,Voter.party_select(Prompts.voter_party))
       puts "\nVoter added to the world."
     end
 
@@ -52,9 +49,11 @@ class World
 
   #list out all of the politicians and voters, then return to main_menu
   def list
+    puts "\nPoliticians:"
     @politicians.each do |pol|
       puts "#{pol.class}, #{pol.name}, #{pol.party}"
     end
+    puts "\nVoters:"
     @voters.each do |voter|
       puts "#{voter.class}, #{voter.name}, #{voter.party}"
     end
@@ -67,14 +66,14 @@ class World
     name = Prompts.update_person()
 
     #search the @politicians array and see if the requested name is present. If it is, let us change the party.
-    politician = search(@politicians,name)
-    if politician.is_a? Politician
+    politician = search(@politicians,name)[0]
+    if politician
       politician.party = Politician.party_select(Prompts.politician_party)
     end
 
     #search the @voters array and see if the requested name is present. If it is, let us change the party.
-    voter = search(@voters,name)
-    if voter.is_a? Voter
+    voter = search(@voters,name)[0]
+    if voter
       voter.party = Voter.party_select(Prompts.voter_party)
     end
 
@@ -86,14 +85,14 @@ class World
     name = Prompts.delete_person
 
     #search the @politicians array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
-    politician = search(@politicians,name)
-    if politician.is_a? Politician
+    politician = search(@politicians,name)[0]
+    if politician
       @politicians.delete(politician) if Prompts.confirmation == "y"
     end
 
     #search the @voters array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
-    voter = search(@voters,name)
-    if voter.is_a? Voter
+    voter = search(@voters,name)[0]
+    if voter
       @voters.delete(voter) if Prompts.confirmation == "y"
     end
 
