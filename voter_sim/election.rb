@@ -1,9 +1,11 @@
 require_relative 'voter'
 require_relative 'politician'
 require_relative 'prompts'
+require_relative 'status_msgs'
 
 class Election
   include Prompts
+  include Status_msgs
 
   def initialize
     @voters = []
@@ -23,7 +25,7 @@ class Election
     when "q"
       exit
     else
-      puts "\nEnter a valid menu item."
+      invalid_input
     end
 
     main_menu
@@ -35,16 +37,15 @@ class Election
       case person_type
       when "p"
         @politicians << Politician.new(get_name,politician_party)
-        puts "\nPolitician added to the world."
+        person_added("Politician")
       when "v"
         @voters << Voter.new(get_name,voter_party)
-        puts "\nVoter added to the world."
+        person_added("Voter")
       else
-        puts "Invalid person type."
+        invalid_person
       end
-
     rescue
-      puts "Please enter a valid name and party."
+      invalid_input
     end
     main_menu
   end
@@ -67,10 +68,10 @@ class Election
 
     if politician = search(@politicians,name)[0]
       politician.party = Politician.party_select(politician_party)
-      puts "Updated!"
+      done
     elsif voter = search(@voters,name)[0]
       voter.party = Voter.party_select(voter_party)
-      puts "Updated!"
+      done
     else
       invalid_input
     end
@@ -84,10 +85,10 @@ class Election
 
     if politician = search(@politicians,name)[0]
       @politicians.delete(politician)
-      puts "\nDeleted!" if confirmation == "y"
+      done if confirmation == "y"
     elsif voter = search(@voters,name)[0]
       @voters.delete(voter)
-      puts "\nDeleted!" if confirmation == "y"
+      done if confirmation == "y"
     else
       invalid_input
     end
