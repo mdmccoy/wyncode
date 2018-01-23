@@ -14,8 +14,6 @@ module Prompts
 
   def get_voter_party() ask_downcase "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?\n" end
 
-  def invalid_input() puts "\nInput a valid person.\n" end
-
   def ask_downcase(*question) ask(*question).downcase end
 
   def ask(*question) puts(*question); gets.chomp end
