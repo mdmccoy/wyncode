@@ -19,7 +19,7 @@ class Voter < Person
     when "n"
       "Neutral"
     else
-      throw ArgumentError
+      raise ArgumentError.new("\nVoter party error.")
     end
   end
 end

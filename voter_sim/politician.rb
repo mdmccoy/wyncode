@@ -13,7 +13,7 @@ class Politician < Person
     when "r"
       "Republican"
     else
-      throw ArgumentError
+      raise ArgumentError.new("\nPolitician party error.")
     end
 
   end

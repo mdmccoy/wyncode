@@ -36,10 +36,10 @@ class Election
     begin
       case person_type
       when "p"
-        @politicians << Politician.new(get_name,politician_party)
-        person_added("Politician")
+          @politicians << Politician.new(get_name,get_politician_party)
+          person_added("Politician")
       when "v"
-        @voters << Voter.new(get_name,voter_party)
+        @voters << Voter.new(get_name,get_voter_party)
         person_added("Voter")
       else
         invalid_person
@@ -68,16 +68,16 @@ class Election
 
     begin
       if politician = search(@politicians,name)[0]
-        politician.party = Politician.party_select(politician_party)
+        politician.party = Politician.party_select(get_politician_party)
         done
       elsif voter = search(@voters,name)[0]
-        voter.party = Voter.party_select(voter_party)
+        voter.party = Voter.party_select(get_voter_party)
         done
       else
         invalid_input
       end
-    rescue
-      invalid_input
+    rescue ArgumentError => e
+      puts e.message
     end
 
     main_menu
