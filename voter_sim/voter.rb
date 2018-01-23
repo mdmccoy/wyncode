@@ -18,6 +18,8 @@ class Voter < Person
       "Socialist"
     when "n"
       "Neutral"
+    else
+      puts "Invalid Party."
     end
   end
 end

@@ -39,7 +39,10 @@ class Election
       when "v"
         @voters << Voter.new(get_name,voter_party)
         puts "\nVoter added to the world."
+      else
+        puts "Invalid person type."
       end
+
     rescue
       puts "Please enter a valid name and party."
     end

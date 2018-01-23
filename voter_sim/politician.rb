@@ -12,6 +12,9 @@ class Politician < Person
       "Democrat"
     when "r"
       "Republican"
+    else
+      puts "Invalid party."
     end
+
   end
 end
