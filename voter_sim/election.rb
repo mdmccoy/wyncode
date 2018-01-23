@@ -40,8 +40,8 @@ class Election
         @voters << Voter.new(get_name,voter_party)
         puts "\nVoter added to the world."
       end
-    rescue ArgumentError => e
-      puts e.message
+    rescue
+      puts "Please enter a valid name and party."
     end
     main_menu
   end
@@ -64,10 +64,12 @@ class Election
 
     if politician = search(@politicians,name)[0]
       politician.party = Politician.party_select(politician_party)
+      puts "Updated!"
     elsif voter = search(@voters,name)[0]
       voter.party = Voter.party_select(voter_party)
+      puts "Updated!"
     else
-      puts "\nInput a valid person.\n"
+      invalid_input
     end
 
     main_menu
@@ -78,11 +80,13 @@ class Election
     name = modify_person("delete")
 
     if politician = search(@politicians,name)[0]
-      @politicians.delete(politician) ; puts "\nDeleted!" if confirmation == "y"
+      @politicians.delete(politician)
+      puts "\nDeleted!" if confirmation == "y"
     elsif voter = search(@voters,name)[0]
-      @voters.delete(voter) ; puts "\nDeleted!" if confirmation == "y"
+      @voters.delete(voter)
+      puts "\nDeleted!" if confirmation == "y"
     else
-      puts "\nInput a valid person.\n"
+      invalid_input
     end
 
     main_menu
@@ -98,4 +102,4 @@ class Election
   end
 end
 
-Election.new.main_menu
+# Election.new.main_menu
