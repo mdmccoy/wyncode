@@ -19,7 +19,7 @@ class Voter < Person
     when "n"
       "Neutral"
     else
-      puts "Invalid Party."
+      throw ArguementError
     end
   end
 end
