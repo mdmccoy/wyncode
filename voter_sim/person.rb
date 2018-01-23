@@ -3,8 +3,8 @@ class Person
   attr_accessor :party
 
   def initialize(name,party)
-    if party.nil? || name.nil?
-      throw ArguementError.new("Invalid arguement.")
+    if party.to_s.empty? || name.to_s.empty?
+      raise ArgumentError
     else
       @name = name
       @party = party
