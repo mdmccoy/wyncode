@@ -3,8 +3,7 @@ require_relative 'politician'
 require_relative 'prompts'
 #require 'pry'
 
-
-class World
+class Election
   include Prompts
 
   def initialize
@@ -14,6 +13,7 @@ class World
 
   #searches through an array for a specific voter/politician and return the first copy, return nil if we don't find anything
   def search(array,name)
+    sort
     array.select { |person| person if person.name == name }
   end
 
@@ -27,6 +27,8 @@ class World
       update
     when "d"
       delete
+    when "q"
+      exit
     end
 
     #if the input doesn't match our case, call main_menu again.
@@ -41,7 +43,7 @@ class World
       @politicians << Politician.new(get_name,Politician.party_select(politician_party))
       puts "\nPolitician added to the world."
     when "v"
-      @voters << Voter.new(Prompts.get_name,Voter.party_select(voter_party))
+      @voters << Voter.new(get_name,Voter.party_select(voter_party))
       puts "\nVoter added to the world."
     end
 
@@ -51,6 +53,7 @@ class World
 
   #list out all of the politicians and voters, then return to main_menu
   def list
+    sort
     puts "\nPoliticians:"
     @politicians.each do |pol|
       puts "#{pol.class}, #{pol.name}, #{pol.party}"
@@ -99,6 +102,11 @@ class World
     #return to main_menu
     main_menu
   end
+
+  def sort
+    @voters = @voters.sort {|a,b| a.name <=> b.name}
+    @politicians = @politicians.sort {|a,b| a.name <=> b.name}
+  end
 end
 
-World.new.main_menu
+Election.new.main_menu

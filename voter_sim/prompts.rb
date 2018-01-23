@@ -1,7 +1,7 @@
 module Prompts
   #puts prompt to screen, gets input and returns a single character
   def main_menu_prompt
-    ask_downcase "\nWhat would you like to do?\n(C)reate, (L)ist, (U)pdate, or (D)elete\n"
+    ask_downcase "\nWhat would you like to do?\n(C)reate, (L)ist, (U)pdate, (D)elete , or (Q)uit\n"
   end
 
   def person_type
