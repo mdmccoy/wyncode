@@ -4,7 +4,7 @@ class Person
 
   def initialize(name,party)
     if party.to_s.empty? || name.to_s.empty?
-      raise ArgumentError
+      raise ArgumentError.new("Please enter a valid name and party.")
     else
       @name = name
       @party = party

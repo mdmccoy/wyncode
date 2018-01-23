@@ -19,7 +19,7 @@ class Voter < Person
     when "n"
       "Neutral"
     else
-      throw ArguementError
+      throw ArgumentError
     end
   end
 end

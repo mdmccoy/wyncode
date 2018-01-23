@@ -13,7 +13,7 @@ class Politician < Person
     when "r"
       "Republican"
     else
-      throw ArguementError
+      throw ArgumentError
     end
 
   end

@@ -44,8 +44,8 @@ class Election
       else
         invalid_person
       end
-    rescue
-      invalid_input
+    rescue ArgumentError => e
+      puts e.message
     end
     main_menu
   end
@@ -66,13 +66,17 @@ class Election
   def update
     name = modify_person("update")
 
-    if politician = search(@politicians,name)[0]
-      politician.party = Politician.party_select(politician_party)
-      done
-    elsif voter = search(@voters,name)[0]
-      voter.party = Voter.party_select(voter_party)
-      done
-    else
+    begin
+      if politician = search(@politicians,name)[0]
+        politician.party = Politician.party_select(politician_party)
+        done
+      elsif voter = search(@voters,name)[0]
+        voter.party = Voter.party_select(voter_party)
+        done
+      else
+        invalid_input
+      end
+    rescue
       invalid_input
     end
 
