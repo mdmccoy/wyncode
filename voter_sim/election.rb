@@ -1,7 +1,6 @@
 require_relative 'voter'
 require_relative 'politician'
 require_relative 'prompts'
-#require 'pry'
 
 class Election
   include Prompts
@@ -9,12 +8,6 @@ class Election
   def initialize
     @voters = []
     @politicians = []
-  end
-
-  #searches through an array for a specific voter/politician and return the first copy, return nil if we don't find anything
-  def search(array,name)
-    sort
-    array.select { |person| person if person.name == name }
   end
 
   def main_menu
@@ -31,37 +24,34 @@ class Election
       exit
     end
 
-    #if the input doesn't match our case, call main_menu again.
     main_menu
   end
 
   #create a new politician or voter and add them to our world
   def create
-    #get all of the information we need to make a new person
-    case person_type
-    when "p"
-      @politicians << Politician.new(get_name,Politician.party_select(politician_party))
-      puts "\nPolitician added to the world."
-    when "v"
-      @voters << Voter.new(get_name,Voter.party_select(voter_party))
-      puts "\nVoter added to the world."
+    begin
+      case person_type
+      when "p"
+        @politicians << Politician.new(get_name,Politician.party_select(politician_party))
+        puts "\nPolitician added to the world."
+      when "v"
+        @voters << Voter.new(get_name,Voter.party_select(voter_party))
+        puts "\nVoter added to the world."
+      end
+    rescue
+      puts "Please enter a valid name and party.\n"
     end
-
-    #return to main_menu
     main_menu
   end
 
-  #list out all of the politicians and voters, then return to main_menu
+  #list out all of the politicians and voters
   def list
     sort
+
     puts "\nPoliticians:"
-    @politicians.each do |pol|
-      puts "#{pol.class}, #{pol.name}, #{pol.party}"
-    end
+    @politicians.each {|pol| puts "#{pol.class}, #{pol.name}, #{pol.party}" }
     puts "\nVoters:"
-    @voters.each do |voter|
-      puts "#{voter.class}, #{voter.name}, #{voter.party}"
-    end
+    @voters.each {|voter| puts "#{voter.class}, #{voter.name}, #{voter.party}"}
 
     main_menu
   end
@@ -70,39 +60,36 @@ class Election
   def update
     name = modify_person("update")
 
-    #search the @politicians array and see if the requested name is present. If it is, let us change the party.
     if politician = search(@politicians,name)[0]
       politician.party = Politician.party_select(politician_party)
     end
 
-    #search the @voters array and see if the requested name is present. If it is, let us change the party.
     if voter = search(@voters,name)[0]
       voter.party = Voter.party_select(voter_party)
     end
 
-    #return to main_menu
     main_menu
   end
 
+  #deletes someone from the array
   def delete
     name = modify_person("delete")
 
-    #search the @politicians array and see if the requested name is present.If it is, check to make sure we want to delete it before doing so.
-
     if politician = search(@politicians,name)[0]
       @politicians.delete(politician) ; puts "\nDeleted!" if confirmation == "y"
-
     end
 
-    #search the @voters array and see if the requested name is present. If it is, check to make sure we want to delete it before doing so.
     if voter = search(@voters,name)[0]
       @voters.delete(voter) ; puts "\nDeleted!" if confirmation == "y"
     end
 
-    #return to main_menu
     main_menu
   end
 
+  #searches through an array for a specific voter/politician and return the first copy, return nil if we don't find anything
+  def search(array,name) sort; array.select { |person| person if person.name == name } end
+
+  #Sorts arrays by name
   def sort
     @voters = @voters.sort {|a,b| a.name <=> b.name}
     @politicians = @politicians.sort {|a,b| a.name <=> b.name}

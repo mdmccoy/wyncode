@@ -4,6 +4,10 @@ class Person
 
   def initialize(name,party)
     @name = name
-    @party = party
+    if party.nil?
+      raise ArgumentError
+    else
+      @party = party
+    end
   end
 end
