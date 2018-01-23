@@ -2,7 +2,7 @@ require_relative 'person'
 
 class Voter < Person
   def initialize(name,party)
-    super(name,party)
+    super(name,Voter.party_select(party))
   end
 
 
