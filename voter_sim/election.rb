@@ -22,6 +22,8 @@ class Election
       delete
     when "q"
       exit
+    else
+      puts "\nEnter a valid menu item."
     end
 
     main_menu
@@ -32,14 +34,14 @@ class Election
     begin
       case person_type
       when "p"
-        @politicians << Politician.new(get_name,Politician.party_select(politician_party))
+        @politicians << Politician.new(get_name,politician_party)
         puts "\nPolitician added to the world."
       when "v"
-        @voters << Voter.new(get_name,Voter.party_select(voter_party))
+        @voters << Voter.new(get_name,voter_party)
         puts "\nVoter added to the world."
       end
-    rescue
-      puts "Please enter a valid name and party.\n"
+    rescue ArgumentError => e
+      puts e.message
     end
     main_menu
   end
@@ -62,10 +64,10 @@ class Election
 
     if politician = search(@politicians,name)[0]
       politician.party = Politician.party_select(politician_party)
-    end
-
-    if voter = search(@voters,name)[0]
+    elsif voter = search(@voters,name)[0]
       voter.party = Voter.party_select(voter_party)
+    else
+      puts "\nInput a valid person.\n"
     end
 
     main_menu
@@ -77,10 +79,10 @@ class Election
 
     if politician = search(@politicians,name)[0]
       @politicians.delete(politician) ; puts "\nDeleted!" if confirmation == "y"
-    end
-
-    if voter = search(@voters,name)[0]
+    elsif voter = search(@voters,name)[0]
       @voters.delete(voter) ; puts "\nDeleted!" if confirmation == "y"
+    else
+      puts "\nInput a valid person.\n"
     end
 
     main_menu
