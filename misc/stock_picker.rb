@@ -17,16 +17,10 @@
 def stock_picker(array)
   max_profit = 0
   #take an element from the array, and then compare it to all elements that come after it. Return the largest or least small difference.
-  (0...array.length).each_with_index do |earlier_price,earlier_time|
-    (array[earlier_time+1..-1]).each do |inner|
-      p "Out/In" + [outer,inner].to_s
-      earlier_day = [outer,inner].min
-      later_day  = [outer,inner].max
-      p "earlier_day/later_day" + [earlier_day,later_day].to_s
+  (array).each_with_index do |earlier_price,earlier_time|
+    (array[earlier_time+1..-1]).each do |later_price|
 
-      earlier_price = array[earlier_day]
-      later_price = array[later_day]
-
+      [earlier_price,later_price]
       potential_profit = later_price - earlier_price
 
       max_profit = [max_profit,potential_profit].max
@@ -39,5 +33,5 @@ end
 
 stock_prices_yesterday = [10, 7, 5, 4, 3, 2]
 p stock_picker(stock_prices_yesterday)
-stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
-p stock_picker(stock_prices_yesterday)
+#stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
+#p stock_picker(stock_prices_yesterday)
