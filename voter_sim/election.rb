@@ -14,15 +14,15 @@ class Election
 
   def main_menu
     case main_menu_prompt
-    when "c"
+    when 'c'
       create
-    when "l"
+    when 'l'
       list
-    when "u"
+    when 'u'
       update
-    when "d"
+    when 'd'
       delete
-    when "q"
+    when 'q'
       exit
     else
       invalid_input
@@ -31,16 +31,16 @@ class Election
     main_menu
   end
 
-  #create a new politician or voter and add them to our world
+  # create a new politician or voter and add them to our world
   def create
     begin
       case person_type
-      when "p"
-          @politicians << Politician.new(get_name,get_politician_party)
-          person_added("Politician")
-      when "v"
-        @voters << Voter.new(get_name,get_voter_party)
-        person_added("Voter")
+      when 'p'
+        @politicians << Politician.new(get_name, get_politician_party)
+        person_added('Politician')
+      when 'v'
+        @voters << Voter.new(get_name, get_voter_party)
+        person_added('Voter')
       else
         invalid_person
       end
@@ -50,27 +50,27 @@ class Election
     main_menu
   end
 
-  #list out all of the politicians and voters
+  # list out all of the politicians and voters
   def list
     sort
 
     puts "\nPoliticians:"
-    @politicians.each {|pol| puts "#{pol.class}, #{pol.name}, #{pol.party}" }
+    @politicians.each { |pol| puts "#{pol.class}, #{pol.name}, #{pol.party}" }
     puts "\nVoters:"
-    @voters.each {|voter| puts "#{voter.class}, #{voter.name}, #{voter.party}"}
+    @voters.each { |voter| puts "#{voter.class}, #{voter.name}, #{voter.party}" }
 
     main_menu
   end
 
-  #allows us to update existing perople
+  # allows us to update existing perople
   def update
-    name = modify_person("update")
+    name = modify_person('update')
 
     begin
-      if politician = search(@politicians,name)[0]
+      if politician = search(@politicians, name)[0]
         politician.party = Politician.party_select(get_politician_party)
         done
-      elsif voter = search(@voters,name)[0]
+      elsif voter = search(@voters, name)[0]
         voter.party = Voter.party_select(get_voter_party)
         done
       else
@@ -83,16 +83,16 @@ class Election
     main_menu
   end
 
-  #deletes someone from the array
+  # deletes someone from the array
   def delete
-    name = modify_person("delete")
+    name = modify_person('delete')
 
-    if politician = search(@politicians,name)[0]
+    if politician = search(@politicians, name)[0]
       @politicians.delete(politician)
-      done if confirmation == "y"
-    elsif voter = search(@voters,name)[0]
+      done if confirmation == 'y'
+    elsif voter = search(@voters, name)[0]
       @voters.delete(voter)
-      done if confirmation == "y"
+      done if confirmation == 'y'
     else
       invalid_input
     end
@@ -100,13 +100,16 @@ class Election
     main_menu
   end
 
-  #searches through an array for a specific voter/politician and return the first copy, return nil if we don't find anything
-  def search(array,name) sort; array.select { |person| person if person.name == name } end
+  # searches through an array for a specific voter/politician and return the first copy, return nil if we don't find anything
+  def search(array, name)
+    sort
+    array.select { |person| person if person.name == name }
+  end
 
-  #Sorts arrays by name
+  # Sorts arrays by name
   def sort
-    @voters = @voters.sort {|a,b| a.name <=> b.name}
-    @politicians = @politicians.sort {|a,b| a.name <=> b.name}
+    @voters = @voters.sort_by(&:name)
+    @politicians = @politicians.sort_by(&:name)
   end
 end
 
