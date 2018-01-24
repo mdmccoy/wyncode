@@ -17,8 +17,8 @@
 def stock_picker(array)
   max_profit = 0
   #take an element from the array, and then compare it to all elements that come after it. Return the largest or least small difference.
-  (0...array.length).step do |outer|
-    (0...array.length).step do |inner|
+  (0...array.length).each_with_index do |earlier_price,earlier_time|
+    (array[earlier_time+1..-1]).each do |inner|
       p "Out/In" + [outer,inner].to_s
       earlier_day = [outer,inner].min
       later_day  = [outer,inner].max
