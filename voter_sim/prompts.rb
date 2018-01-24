@@ -10,9 +10,9 @@ module Prompts
 
   def confirmation() ask_downcase "\nAre you sure? (Y/N)\n" end
 
-  def politician_party() ask_downcase "\nWhat is the political party?\n(D)emocrat or (R)epublican?\n" end
+  def get_politician_party() ask_downcase "\nWhat is the political party?\n(D)emocrat or (R)epublican?\n" end
 
-  def voter_party() ask_downcase "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?\n" end
+  def get_voter_party() ask_downcase "\nWhat is the political affiliation?\n(L)iberal, (C)onservative, (T)ea Party, (S)ocialist, (N)eutral?\n" end
 
   def ask_downcase(*question) ask(*question).downcase end
 

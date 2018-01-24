@@ -3,8 +3,8 @@ class Person
   attr_accessor :party
 
   def initialize(name,party)
-    if party.to_s.empty? || name.to_s.empty?
-      raise ArgumentError
+    if name.to_s.empty?
+      raise ArgumentError.new("\nPerson name error.")
     else
       @name = name
       @party = party

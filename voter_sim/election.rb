@@ -1,9 +1,11 @@
 require_relative 'voter'
 require_relative 'politician'
 require_relative 'prompts'
+require_relative 'status_msgs'
 
 class Election
   include Prompts
+  include Status_msgs
 
   def initialize
     @voters = []
@@ -23,7 +25,7 @@ class Election
     when "q"
       exit
     else
-      puts "\nEnter a valid menu item."
+      invalid_input
     end
 
     main_menu
@@ -34,11 +36,13 @@ class Election
     begin
       case person_type
       when "p"
-        @politicians << Politician.new(get_name,politician_party)
-        puts "\nPolitician added to the world."
+          @politicians << Politician.new(get_name,get_politician_party)
+          person_added("Politician")
       when "v"
-        @voters << Voter.new(get_name,voter_party)
-        puts "\nVoter added to the world."
+        @voters << Voter.new(get_name,get_voter_party)
+        person_added("Voter")
+      else
+        invalid_person
       end
     rescue ArgumentError => e
       puts e.message
@@ -62,12 +66,18 @@ class Election
   def update
     name = modify_person("update")
 
-    if politician = search(@politicians,name)[0]
-      politician.party = Politician.party_select(politician_party)
-    elsif voter = search(@voters,name)[0]
-      voter.party = Voter.party_select(voter_party)
-    else
-      puts "\nInput a valid person.\n"
+    begin
+      if politician = search(@politicians,name)[0]
+        politician.party = Politician.party_select(get_politician_party)
+        done
+      elsif voter = search(@voters,name)[0]
+        voter.party = Voter.party_select(get_voter_party)
+        done
+      else
+        invalid_input
+      end
+    rescue ArgumentError => e
+      puts e.message
     end
 
     main_menu
@@ -78,11 +88,13 @@ class Election
     name = modify_person("delete")
 
     if politician = search(@politicians,name)[0]
-      @politicians.delete(politician) ; puts "\nDeleted!" if confirmation == "y"
+      @politicians.delete(politician)
+      done if confirmation == "y"
     elsif voter = search(@voters,name)[0]
-      @voters.delete(voter) ; puts "\nDeleted!" if confirmation == "y"
+      @voters.delete(voter)
+      done if confirmation == "y"
     else
-      puts "\nInput a valid person.\n"
+      invalid_input
     end
 
     main_menu
@@ -98,4 +110,4 @@ class Election
   end
 end
 
-Election.new.main_menu
+# Election.new.main_menu
