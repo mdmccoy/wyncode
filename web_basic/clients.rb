@@ -28,8 +28,8 @@ require 'json'
 
 url = "https://miami.craigslist.org/search/#{ARGV[0]}"
 jobs = Nokogiri::HTML(HTTParty.get(url).body).css('a.result-title')
-(0...jobs.length).each do |index|
-  puts index.to_s + '.) ' + jobs[index].text + "\n" + jobs[index].values[0]
+jobs.each_with_index do |_element, index|
+  puts (index + 1).to_s + '.) ' + jobs[index].text + "\n" + jobs[index].values[0]
 end
 
 # pp jobs = dom.css('a.result-title.hdrlnk').map(&:content)
