@@ -22,5 +22,4 @@ def random_sentence
   random_phrase.capitalize + '.'
 end
 
-
 p random_sentence
