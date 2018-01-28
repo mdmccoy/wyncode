@@ -17,7 +17,7 @@ if ARGV[0] = 'GET'
   response = webpage.response
 
   puts "HTTP/#{response.http_version} #{response.code} #{response.message}  "
-  webpage.headers.each do |key, _value|
+  webpage.headers.each_with_index do |key, _value|
     puts "#{key.capitalize}: #{_value}"
   end
   puts "\n\n" + webpage.body
