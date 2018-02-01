@@ -18,7 +18,7 @@ if ARGV[0] = 'GET'
 
   puts "HTTP/#{response.http_version} #{response.code} #{response.message}  "
   webpage.headers.each_with_index do |key, _value|
-    puts "#{key.capitalize}: #{_value}"
+    puts "#{key}: #{_value}"
   end
   puts "\n\n" + webpage.body
 end
