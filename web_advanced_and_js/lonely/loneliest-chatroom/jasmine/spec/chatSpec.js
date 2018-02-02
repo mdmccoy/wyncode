@@ -14,7 +14,7 @@ describe('Creating a Message by Clicking Send (1)', function() {
     expect($('#new-message-body').val()).toBeFalsy();
   });
 });
-
+//Delete x as you solve the tests
 xdescribe('Creating a Message by Hitting Enter (2)', function() {
   var message;
   beforeAll(function() {
@@ -33,7 +33,7 @@ xdescribe('Creating a Message by Hitting Enter (2)', function() {
 });
 
 xdescribe('Destroying a Message(1)', function() {
-   var message;
+  var message;
   beforeAll(function() {
     enterMessage("hello");
     $('#new-message-button').trigger('click');
@@ -74,7 +74,7 @@ xdescribe("Alternates between Me/Myself/I (3)", function() {
 
   it("Alternates between Me, Myself, and I", function() {
     var usernames = [];
-    for(var i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       enterMessage('Hello');
       $('#new-message-button').trigger('click');
       usernames.push(lastMessageObject().children('.author').html());
@@ -87,26 +87,26 @@ xdescribe("Alternates between Me/Myself/I (3)", function() {
 
 xdescribe("I'm lonely! Button pulls in API data as a chat(5):", function() {
   beforeAll(function(done) {
-     spyOn($, 'ajax').and.callThrough();
-     if ($.icndb) {
+    spyOn($, 'ajax').and.callThrough();
+    if ($.icndb) {
       spyOn($.icndb, 'getRandomJoke').and.throwError("Don't use some fancy plugin!");
       spyOn($.icndb, 'getRandomJokes').and.throwError("Don't use some fancy plugin!");
       spyOn($.icndb, 'getNumberOfJokes').and.throwError("Don't use some fancy plugin!");
       spyOn($.icndb, 'getCategories').and.throwError("Don't use some fancy plugin!");
-     }
-     $('#lonely').trigger('click');
-     var checkExist = setInterval(function() {
-        console.log('checking!');
+    }
+    $('#lonely').trigger('click');
+    var checkExist = setInterval(function() {
+      console.log('checking!');
       if (lastMessageObject().children('.author').html() == "Internet") {
         clearInterval(checkExist);
         done();
       }
-     }, 100);
+    }, 100);
   });
   afterAll(clearMessages);
 
   it("Clicking #lonely uses jQuery ajax, not some fancy plugin!", function() {
-   expect($.ajax).toHaveBeenCalled();
+    expect($.ajax).toHaveBeenCalled();
   });
 
   it("Adds the message to chat with username 'Internet'", function() {
@@ -119,12 +119,15 @@ xdescribe("I'm lonely! Button pulls in API data as a chat(5):", function() {
 function lastMessage() {
   return $('#conversation li').last().children('.message-body').html();
 }
+
 function lastMessageObject() {
   return $('#conversation li').last();
 }
+
 function clearMessages() {
   $('#conversation').html('');
 }
+
 function enterMessage(txt) {
   $('#new-message-body').val(txt);
   return txt;
