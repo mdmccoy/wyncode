@@ -5,7 +5,7 @@ $(function() {
     console.log($messageContent);
     let $convo = $('#conversation');
     // console.log($convo);
-    $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3>Me</h3><p class='message-body'>${$messageContent}</p><span class='timestamp'>TIME</span></li>`)
+    $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3 class="author">Me</h3><p class='message-body'>${$messageContent}</p><span class='timestamp'>TIME</span></li>`)
   });
 
 
