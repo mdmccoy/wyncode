@@ -5,12 +5,31 @@ $(function() {
     $lonely = $('#lonely');
 
   let sendMessage = (author, message) => {
-    let $convo = $('#conversation'),
-      timestamp = `${new Date().getHours()}:${new Date().getMinutes()}`;
+      let $convo = $('#conversation'),
+        timestamp = `${new Date().getHours()}:${new Date().getMinutes()}`;
 
-    $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3 class="author">${author}</h3><p class='message-body'>${message}</p><span class='timestamp'>${timestamp}</span></li>`)
-    $messageBody.val("");
-  };
+      $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3 class="author">${author}</h3><p class='message-body'>${message}</p><span class='timestamp'>${timestamp}</span></li>`)
+      $messageBody.val("");
+    },
+    setAuthor = () => {
+      let $convo = $('#conversation');
+      author = $convo.find('.author').last().text();
+      switch (author) {
+        case 'Me':
+          author = 'Myself';
+          break;
+        case 'Myself':
+          author = "I";
+          break;
+        case 'I':
+          author = 'Me';
+          break;
+        default:
+          author = 'Me'
+          break;
+      }
+      return author;
+    };
 
   $chatBox.on('click', '.delete', function(event) {
     $(this).closest('.message').remove();
@@ -26,28 +45,7 @@ $(function() {
     }
   });
 
-  setAuthor = () => {
-    let $convo = $('#conversation');
-    author = $convo.find('.author').last().text();
-    switch (author) {
-      case 'Me':
-        author = 'Myself';
-        break;
-      case 'Myself':
-        author = "I";
-        break;
-      case 'I':
-        author = 'Me';
-        break;
-      default:
-        author = 'Me'
-        break;
-    }
-    return author;
-  };
-
   $lonely.click(function() {
-    // JSON.parse($response.responseText).value.joke
     $.get('https://api.icndb.com/jokes/random', function(res, req) {
       sendMessage("Internet", res.value.joke);
     });
