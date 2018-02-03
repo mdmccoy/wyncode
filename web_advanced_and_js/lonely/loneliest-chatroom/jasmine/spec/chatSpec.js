@@ -49,7 +49,7 @@ describe('Destroying a Message(1)', function() {
 });
 
 
-xdescribe('Timestamps for each Message (2)', function() {
+describe('Timestamps for each Message (2)', function() {
   var message;
   beforeAll(function() {
     message = enterMessage("Hello!");
