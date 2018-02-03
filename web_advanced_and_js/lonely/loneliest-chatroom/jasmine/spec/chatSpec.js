@@ -14,7 +14,7 @@ describe('Creating a Message by Clicking Send (1)', function() {
     expect($('#new-message-body').val()).toBeFalsy();
   });
 });
-//Delete x as you solve the tests
+
 describe('Creating a Message by Hitting Enter (2)', function() {
   var message;
   beforeAll(function() {
@@ -69,7 +69,7 @@ describe('Timestamps for each Message (2)', function() {
   });
 });
 
-xdescribe("Alternates between Me/Myself/I (3)", function() {
+describe("Alternates between Me/Myself/I (3)", function() {
   afterAll(clearMessages);
 
   it("Alternates between Me, Myself, and I", function() {
@@ -85,7 +85,7 @@ xdescribe("Alternates between Me/Myself/I (3)", function() {
   });
 });
 
-xdescribe("I'm lonely! Button pulls in API data as a chat(5):", function() {
+describe("I'm lonely! Button pulls in API data as a chat(5):", function() {
   beforeAll(function(done) {
     spyOn($, 'ajax').and.callThrough();
     if ($.icndb) {

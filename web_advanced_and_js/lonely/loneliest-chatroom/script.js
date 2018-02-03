@@ -1,15 +1,34 @@
 $(function() {
   let $newMessageButton = $('#new-message-button'),
-    $messageBody = $('#new-message-body');
-
+    $messageBody = $('#new-message-body'),
+    $chatBox = $('.chat'),
+    $lonely = $('#lonely');
 
   let sendMessage = () => {
-    let $convo = $('#conversation');
-    $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3 class="author">Me</h3><p class='message-body'>${$messageBody.val()}</p><span class='timestamp'>${$.now()}</span></li>`)
+    let $convo = $('#conversation'),
+      timestamp = `${new Date().getHours()}:${new Date().getMinutes()}`,
+      greetings = ['Me', 'Myself', 'I'],
+      $author = $convo.find('.author').last().text();
+    switch ($author) {
+      case 'Me':
+        $author = 'Myself';
+        break;
+      case 'Myself':
+        $author = "I";
+        break;
+      case 'I':
+        $author = 'Me';
+        break;
+      default:
+        $author = 'Me'
+        break;
+    }
+
+    $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3 class="author">${$author}</h3><p class='message-body'>${$messageBody.val()}</p><span class='timestamp'>${timestamp}</span></li>`)
     $messageBody.val("");
   };
 
-  $('.chat').on('click', '.delete', function(event) {
+  $chatBox.on('click', '.delete', function(event) {
     $(this).closest('.message').remove();
   });
 
@@ -21,18 +40,9 @@ $(function() {
     }
   });
 
-  // let $messageBody = $('#new-message-body'),
-  //   $convo = $('#conversation');
-  // $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3 class="author">Me</h3><p class='message-body'>${$messageBody.val()}</p><span class='timestamp'>TIME</span></li>`)
-  // $messageBody.val("");
-  // });
-
-
-
-  // <li class="message">
-  //   <a class='delete' href='#'>Delete</a>
-  //   <h3 class="author">Me</h3>
-  //   <p class="message-body">Hi! Let's be friends =D</p>
-  //   <span class="timestamp">01:12</span>
-  // </li>
+  $lonely.click(function() {
+    // console.log("I was clicked.");
+    $response = $.get('https://api.icndb.com/jokes/random');
+    console.log($response.responseText);
+  });
 });
