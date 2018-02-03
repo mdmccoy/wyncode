@@ -41,8 +41,15 @@ $(function() {
   });
 
   $lonely.click(function() {
-    // console.log("I was clicked.");
-    $response = $.get('https://api.icndb.com/jokes/random');
-    console.log($response.responseText);
+    // JSON.parse($response.responseText).value.joke
+    $.get('https://api.icndb.com/jokes/random', function(res, req) {
+      let $convo = $('#conversation'),
+        timestamp = `${new Date().getHours()}:${new Date().getMinutes()}`;
+      $convo.append(`<li class='message'><a class='delete' href='#'>Delete</a><h3 class="author">Internet</h3><p class='message-body'>${res.value.joke}</p><span class='timestamp'>${timestamp}</span></li>`);
+      // console.log(res.value.joke);
+
+    });
+
+
   });
 });
