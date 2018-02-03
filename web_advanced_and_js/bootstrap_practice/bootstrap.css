@@ -1,0 +1,23 @@
+.page {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* div {
+  background-color: red;
+} */
+
+#night {
+  background-image: url('Miami-NIghtlife.jpg');
+  background-size: cover;
+}
+
+#day {
+  background-image: url('miami_skyline.jpg');
+  background-size: cover;
+}
+
+#home {
+  background-image: url('welcome.jpg');
+  background-size: cover;
+}
