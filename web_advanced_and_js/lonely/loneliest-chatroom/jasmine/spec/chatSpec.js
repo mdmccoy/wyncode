@@ -15,7 +15,7 @@ describe('Creating a Message by Clicking Send (1)', function() {
   });
 });
 //Delete x as you solve the tests
-xdescribe('Creating a Message by Hitting Enter (2)', function() {
+describe('Creating a Message by Hitting Enter (2)', function() {
   var message;
   beforeAll(function() {
     message = enterMessage("hello");
@@ -32,7 +32,7 @@ xdescribe('Creating a Message by Hitting Enter (2)', function() {
   });
 });
 
-xdescribe('Destroying a Message(1)', function() {
+describe('Destroying a Message(1)', function() {
   var message;
   beforeAll(function() {
     enterMessage("hello");
