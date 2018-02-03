@@ -21,9 +21,6 @@ $(function() {
         case 'Myself':
           author = "I";
           break;
-        case 'I':
-          author = 'Me';
-          break;
         default:
           author = 'Me'
           break;
@@ -40,6 +37,7 @@ $(function() {
   });
 
   $messageBody.keydown(function(event) {
+    //send message on enter/return key
     if (event.keyCode === 13) {
       sendMessage(setAuthor(), $messageBody.val());
     }
