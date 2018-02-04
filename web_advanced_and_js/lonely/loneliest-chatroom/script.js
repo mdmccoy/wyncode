@@ -22,7 +22,7 @@ $(function() {
           author = "I";
           break;
         default:
-          author = 'Me'
+          author = 'Me';
           break;
       }
       return author;
