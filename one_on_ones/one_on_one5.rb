@@ -28,15 +28,12 @@ dir = Direction.new('n', 'North')
 class Compass
   attr_reader :directions
 
-  def initialize
-    @directions = [Direction.new('n', 'North'),
-                   Direction.new('e', 'East'),
-                   Direction.new('s', 'South'),
-                   Direction.new('w', 'West')]
+  def initialize(compass)
+    @directions = %w[n s e w].map { |dir| Direction.new(dir, compass[dir.to_sym]) }
   end
 end
 
-my_compass = Compass.new
+p my_compass = Compass.new(compass)
 
 get '/' do
   # CGI.escapeHTML(my_compass.to_s)
