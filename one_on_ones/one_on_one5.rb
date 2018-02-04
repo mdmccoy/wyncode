@@ -36,9 +36,9 @@ class Compass
   end
 end
 
-my_compass = Compass.new
-p my_compass
+p my_compass = Compass.new
+my_array = [my_compass.to_s]
 
 get '/' do
-  my_compass.to_s
+  CGI.escapeHTML(my_compass.to_s)
 end
