@@ -29,7 +29,7 @@ class Compass
   attr_reader :directions
 
   def initialize(compass)
-    @directions = %w[n s e w].map { |dir| Direction.new(dir, compass[dir.to_sym]) }
+    @directions = compass.map { |key, value| Direction.new(key.to_s, value) }
   end
 end
 
