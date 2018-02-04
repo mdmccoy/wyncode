@@ -36,9 +36,20 @@ class Compass
   end
 end
 
-p my_compass = Compass.new
-my_array = [my_compass.to_s]
+my_compass = Compass.new
 
 get '/' do
-  CGI.escapeHTML(my_compass.to_s)
+  # CGI.escapeHTML(my_compass.to_s)
+  case params['direction'].downcase
+  when 'n'
+    'The direction corresponding to n is North'
+  when 'e'
+    'The direction corresponding to e is East'
+  when 's'
+    'The direction corresponding to s is South'
+  when 'w'
+    'The direction corresponding to w is West'
+  else
+    "I don't know that direction."
+  end
 end
