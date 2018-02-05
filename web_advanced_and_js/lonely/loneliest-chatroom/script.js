@@ -12,8 +12,8 @@ $(function() {
       $messageBody.val("");
     },
     setAuthor = () => {
-      let $convo = $('#conversation');
-      author = $convo.find('.author').last().text();
+      let $convo = $('#conversation'),
+        author = $convo.find('.author').last().text();
       switch (author) {
         case 'Me':
           author = 'Myself';
